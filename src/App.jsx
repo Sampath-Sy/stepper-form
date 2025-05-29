@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from "react";
 
-import './App.css'
-import Stepper from './components/Stepper'
+import "./App.css";
+const Stepper = lazy(() => import("./components/Stepper"));
 
 const CHECKOUT_STEPS = [
   {
@@ -23,14 +23,16 @@ const CHECKOUT_STEPS = [
 ];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-    <h2 className='headline'>Checkout</h2>
-     <Stepper stepperConfig={CHECKOUT_STEPS}/>
+      <h2 className="headline">Checkout</h2>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Stepper stepperConfig={CHECKOUT_STEPS} />
+      </Suspense>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
